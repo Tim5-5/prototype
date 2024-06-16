@@ -1,0 +1,149 @@
+.layout-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  background-color: #141317;
+  padding: 70px;
+  margin: 0 auto; 
+  min-height: 100vh;
+  overflow: hidden; /* verstop onnodige scrollbars*/
+}
+
+.sidebar {
+  flex: 1; 
+  max-width: calc(25% - 40px); /* 25% van maximale breedte 40px padding */
+  background-color: #1C1A1E;
+  padding: 20px;
+  border-radius: 10px; 
+}
+
+.sidebar p {
+  font-size: 24px; 
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar-description {
+  color: #ccc;
+}
+
+.sidebar-description p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.referral-code {
+  border: 2px dashed #696969; 
+  background-color: #2C2A2E; 
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px; 
+  border-width: 2px;
+  height: 80px;
+  text-align: center;
+}
+
+.code-info {
+  font-size: 36px !important;
+  color: #fff !important;
+
+}
+
+.main-content {
+  flex: 3;
+  max-width: calc(75% - 40px); 
+  padding: 20px;
+  margin-left: 20px; 
+  min-height: calc(100vh - 140px); /* Minimale hoogte na padding */
+  overflow-y: auto; /* scrollen toegestaan als er teveel content is */
+}
+
+.main-content p {
+  font-size: 38px; 
+  color: #fff;
+  font-weight: 600; 
+}
+
+.reward-category {
+  margin-bottom: 40px;
+}
+
+.main-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.main-item {
+  display: flex;
+  align-items: center;
+  background-color: #1C1A1E;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.main-item img {
+  width: 80px; 
+  height: 80px; 
+  border-radius: 10px; 
+  margin-right: 20px; 
+}
+
+.main-item-content {
+  flex: 1;
+}
+
+.main-item p {
+  font-size: 24px;
+  margin: 0;
+}
+
+.main-item h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px; 
+}
+
+.main-item-divider {
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+  margin: 10px 0;
+}
+
+.main-item-button {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; 
+  width: 120px;
+  height: 44px;
+  background: #D2122E;
+  border-radius: 100px;
+  border: 0;
+  font-family: Inter, sans-serif; 
+  color: #fff; 
+  font-weight: 600;
+}
+
+.main-item-button:hover {
+  background-color: #0056b3;
+}
+.copy-icon {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none; 
+}
+
+
+.copy-icon img {
+  filter: invert(1);
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+
