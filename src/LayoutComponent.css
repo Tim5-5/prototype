@@ -4,21 +4,24 @@
   max-width: 100%;
   background-color: #141317;
   padding: 70px;
-  margin: 0 auto; 
+  margin: 0 auto;
   min-height: 100vh;
-  overflow: hidden; /* verstop onnodige scrollbars*/
+  overflow: visible;
 }
 
 .sidebar {
-  flex: 1; 
-  max-width: calc(25% - 40px); /* 25% van maximale breedte 40px padding */
+  flex: 1;
+  max-width: calc(25% - 40px);
   background-color: #1C1A1E;
   padding: 20px;
-  border-radius: 10px; 
+  border-radius: 10px;
+  height: calc(100vh - 700px); 
+  position: relative; 
+  z-index: 100; 
 }
 
 .sidebar p {
-  font-size: 24px; 
+  font-size: 24px;
   color: #fff;
   font-weight: 600;
 }
@@ -33,11 +36,11 @@
 }
 
 .referral-code {
-  border: 2px dashed #696969; 
-  background-color: #2C2A2E; 
+  border: 2px dashed #696969;
+  background-color: #2C2A2E;
   padding: 10px;
   border-radius: 5px;
-  margin-top: 20px; 
+  margin-top: 20px;
   border-width: 2px;
   height: 80px;
   text-align: center;
@@ -46,22 +49,22 @@
 .code-info {
   font-size: 36px !important;
   color: #fff !important;
-
 }
 
 .main-content {
   flex: 3;
-  max-width: calc(75% - 40px); 
+  max-width: calc(75% - 40px);
   padding: 20px;
-  margin-left: 20px; 
-  min-height: calc(100vh - 140px); /* Minimale hoogte na padding */
-  overflow-y: auto; /* scrollen toegestaan als er teveel content is */
+  margin-left: 20px;
+  min-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 .main-content p {
-  font-size: 38px; 
-  color: #fff;
-  font-weight: 600; 
+  font-size: 36px;
+  color: #FFF;
+  font-weight: 600;
+  margin-bottom:40px;
 }
 
 .reward-category {
@@ -72,6 +75,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  
 }
 
 .main-item {
@@ -81,13 +85,14 @@
   border-radius: 10px;
   padding: 20px;
   cursor: pointer;
+  margin-bottom: 30px;
 }
 
 .main-item img {
-  width: 80px; 
-  height: 80px; 
-  border-radius: 10px; 
-  margin-right: 20px; 
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin-right: 20px;
 }
 
 .main-item-content {
@@ -95,15 +100,20 @@
 }
 
 .main-item p {
-  font-size: 24px;
+  font-size: 16px;
   margin: 0;
+}
+.main-item-description p {
+  font-size: 16px;
+  margin: 0;
+  
 }
 
 .main-item h2 {
   font-size: 24px;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 .main-item-divider {
@@ -114,31 +124,75 @@
 }
 
 .main-item-button {
-  flex-direction: row;
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px; 
+  margin-top: 10px;
   width: 120px;
   height: 44px;
   background: #D2122E;
   border-radius: 100px;
   border: 0;
-  font-family: Inter, sans-serif; 
-  color: #fff; 
+  font-family: Inter, sans-serif;
+  color: #fff;
   font-weight: 600;
+  transition: 200ms;
+  border: 2px solid #D2122E;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.main-item-button.clicked {
+  color: transparent; /* "redeem" tekst verstoppen */
+  border-radius: 50%; /* cirkel maken van de knop */
+  width: 44px; 
+  height: 44px; 
+  padding: 10px 10px; 
+  border-left: 2px solid #D2122E; 
+  animation: spin 2s 500ms forwards; /* draai animatie */
+}
+
+.check-icon {
+  position: absolute;
+  color: transparent; /* in eerste instantie transparant */
+  transition: color 200ms; /* na 0.2 sec weer kleur */
+}
+
+.main-item-button.clicked .check-icon {
+  animation: check 300ms 2000ms forwards;
+}
+
+/* button animatie */
+@keyframes spin {
+  80% {
+    border: 2px solid transparent; /* border onzichbaar maken */
+    border-left: 2px solid #D2122E; /* alleen de linker border gebruiken waardoor het op een laad animatie lijkt */
+  }
+  100% {
+    transform: rotate(720deg); /* draai 2 rondjes oftwel 720 graden */
+    border: 2px solid #D2122E; /* kleur wordt teruggezet */
+  }
+}
+
+/* de kleur van de checkmark */
+@keyframes check {
+  to {
+    color: #D2122E;
+  }
 }
 
 .main-item-button:hover {
-  background-color: #0056b3;
+  background-color: #D2122E;
 }
+
 .copy-icon {
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
-  outline: none; 
+  outline: none;
 }
-
 
 .copy-icon img {
   filter: invert(1);
@@ -146,4 +200,41 @@
   height: 30px;
   margin: 10px;
 }
+.locked {
+  background-color: #888; 
+  cursor: not-allowed; 
+  pointer-events: none; 
+  opacity: 0.6;
+}
 
+.main-item-button.locked {
+  background-color: #444;
+  color: #999;
+  border-color: #444; 
+}
+
+.lock-icon {
+  margin-right: 5px; 
+  color: #999; 
+}
+
+.gradient-gold {
+    background: linear-gradient(to bottom, #cfc09f 27%, #ffecb3 40%, #3a2c0f 78%);
+}
+
+.gradient-silver {
+    background: linear-gradient(to bottom, #e0e0e0 27%, #f5f5f5 40%, #555555 78%);
+}
+
+.gradient-bronze {
+    background: linear-gradient(to bottom, #cd7f32 27%, #edc9af 40%, #4b2e12 78%);
+}
+
+.gradient-platinum {
+    background: linear-gradient(to bottom, #e5e4e2 27%, #f5f3f0 40%, #666666 78%);
+}
+.gradient-platinum, .gradient-gold, .gradient-silver, .gradient-bronze {
+	    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+color: #fff;
+ }

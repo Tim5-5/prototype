@@ -1,54 +1,49 @@
-import React, { useRef, useState } from 'react'; // alle assets en components
+import React, { useEffect, useRef, useState } from 'react';
 import './Header.css';
-import Logo from './Bierenslogo.png'; 
-import Profilepic from './spiderman.jpg';
-import ArrowIcon from './Arrow.png'; 
 
-// afbeeldingen
+import Logo from './Bierenslogo.png';
+import Profilepic from './spiderman.jpg';
+import ArrowIcon from './Arrow.png';
 import ItemImg1 from './ironman.png';
 import ItemImg2 from './batman.png';
 import ItemImg3 from './galactus.webp';
 import ItemImg4 from './superman.png';
+import LockIcon from './lock-icon.png';
 
-// defineer header
 const Header = () => {
-  // ref aangemaakt om later te gebruiken
   const headerItemsRef = useRef(null);
-
-  // useState gemaakt om te zien of de gebruiker aan het slepen is (in de header van de site)
-  const [isDragging, setIsDragging] = useState(false); 
-  
-  // useState voor de positie
+  const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(null);
   const [scrollStartX, setScrollStartX] = useState(null);
-
-  // als er geklikt wordt wordt setIsDragging op true gezet
-  const handleMouseDown = (e) => {
-    // dragging staat is nu true
-    setIsDragging(true);
-    
-    // muis positie opslaan
-    setDragStartX(e.clientX);
-    
-    // scroll positie header items
-    setScrollStartX(headerItemsRef.current.scrollLeft);
-  };
+  const [progress2, setProgress2] = useState(0); // progress van huidige tier in dit geval progressbar 2
 
 
-  const handleMouseMove = (e) => {
-    // Is dragging state is true? 
-	//zo ja update de positie van de header items op basis van de muis
-    if (isDragging) {
-      headerItemsRef.current.scrollLeft = scrollStartX + dragStartX - e.clientX;
-    }
-  };
+const handleMouseDown = (e) => {
+  setIsDragging(true); // isDragging naar true als er gesleept wordt
+  setDragStartX(e.clientX); // positie van muisklik
+  setScrollStartX(headerItemsRef.current.scrollLeft); // Huidige positie scroll
+};
 
-  // Als de muisklik wordt losgelaten, stop met scrollen van de items
-  const handleMouseUp = () => {
-    // Dragging staat is nu false
-    setIsDragging(false);
-  };
+// Functie als de muis beweegt als de muisknop ingedrukt is
+const handleMouseMove = (e) => {
+  if (isDragging) { 
+    // scrollpositie aanpassen op basis van muisbeweging
+    headerItemsRef.current.scrollLeft = scrollStartX + dragStartX - e.clientX;
+  }
+};
 
+// muisknop losgelaten
+const handleMouseUp = () => {
+  setIsDragging(false); // isDragging naar false
+};
+
+
+  useEffect(() => {
+    // progress bar vuleffect
+    setTimeout(() => {
+      setProgress2(70); // progress van de huidige tier voor dit prototype kan hier aangepast worden. 
+    }, 1000); // vul na 1 sec na laden van pagina
+  }, []);
 
   return (
     <div>
@@ -73,56 +68,46 @@ const Header = () => {
           onMouseLeave={handleMouseUp}
         >
           <div className="header-items">
-            {/* Item 1 */}
+            {/* Bronze */}
             <div className="header-item">
-              {/* Image sticking out */}
               <img src={ItemImg1} alt="Item Image 1" className="item-image" />
-
-              {/* Content */}
-              <p style={{ color: '#CD7F32', fontWeight: 600 }}>Bronze</p>
-
+              <p className="gradient-bronze">Bronze</p>
               <div className="progress-label">Completed</div>
               <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: '40%' }}></div>
+                <div className="progress-bar-fill" style={{ width: '100%' }}></div>
               </div>
             </div>
-
-            {/* Item 2 */}
-            <div className="header-item">
-              {/* Image sticking out */}
+            {/* Silver */}
+            <div className="header-item current-tier">
               <img src={ItemImg2} alt="Item Image 2" className="item-image" />
-
-              {/* Content */}
-              <p style={{ color: 'silver', fontWeight: 600 }}>Silver</p>
-              <div className="progress-label">Completed</div>
+              <p className="gradient-silver">Silver</p>
+              <div className="progress-label">150 points</div>
               <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: '40%' }}></div>
+                <div className="progress-bar-fill" style={{ width: `${progress2}%` }}></div>
               </div>
             </div>
-
-            {/* Item 3 */}
-            <div className="header-item">
-              {/* Image sticking out */}
+            {/* Gold */}
+            <div className="header-item locked-item">
               <img src={ItemImg3} alt="Item Image 3" className="item-image" />
-
-              {/* Content */}
-              <p style={{ color: 'gold', fontWeight: 600 }}>Gold</p>
-              <div className="progress-label">Completed</div>
+              <p className="gradient-gold">Gold</p>
+              <div className="progress-label">
+                Locked
+                <img src={LockIcon} alt="Lock Icon" className="lock-icon" />
+              </div>
               <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: '40%' }}></div>
+                <div className="progress-bar-fill" style={{ width: '0%' }}></div>
               </div>
             </div>
-
-            {/* Item 4 */}
-            <div className="header-item">
-              {/* Image sticking out */}
+            {/* Plat */}
+            <div className="header-item locked-item">
               <img src={ItemImg4} alt="Item Image 4" className="item-image" />
-
-              {/* Content */}
-              <p style={{ color: 'platinum', fontWeight: 600 }}>Platinum</p>
-              <div className="progress-label">Completed</div>
+              <p className="gradient-platinum">Platinum</p>
+              <div className="progress-label">
+                Locked
+                <img src={LockIcon} alt="Lock Icon" className="lock-icon" />
+              </div>
               <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: '40%' }}></div>
+                <div className="progress-bar-fill" style={{ width: '0%' }}></div>
               </div>
             </div>
           </div>
